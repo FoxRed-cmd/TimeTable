@@ -94,6 +94,16 @@ namespace TimeTable
                 command.ExecuteNonQuery();
             }
         }
+        public static void UpdateStudentLogin(string oldLogin, string newLogin)
+        {
+            string expression = $@"UPDATE Students SET LoginOfStudents='{newLogin}' WHERE LoginOfStudents='{oldLogin}'";
+            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            {
+                sqliteConnection.Open();
+                SqliteCommand command = new(expression, sqliteConnection);
+                command.ExecuteNonQuery();
+            }
+        }
         public static void DeleteStudentByLogin(string login)
         {
             string expression = $@"DELETE FROM Students WHERE LoginOfStudents='{login}'";

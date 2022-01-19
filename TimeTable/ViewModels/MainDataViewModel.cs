@@ -25,12 +25,14 @@ namespace TimeTable
         public GroupsPage GroupsPageProp { get; set; }
         public TimeTablesPage TimeTablesPageProp { get; set; }
         public SubjectsPage SubjectsPageProp { get; set; }
+        public UsersPage UsersPageProp { get; set; }
         public List<ComboData> ComboDataGroup { get; set; }
         public List<ComboData> ComboDataSubject { get; set; }
         public List<Student> Students { get; set; }
         public List<Group> Groups { get; set; }
         public List<TimeTableModel> TimeTableModels { get; set; }
         public List<SubjectModel> SubjectModels { get; set; }
+        public List<User> Users { get; set; }
 
         public MainDataViewModel()
         {
@@ -39,6 +41,7 @@ namespace TimeTable
             Groups = Group.GetAllDataFromTable().ToList();
             TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
             SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
+            Users = User.GetAllDataFromTable().ToList();
             for (int i = 0, j = 0; i < Groups.Count; i++)
             {
                 comboDatasGroup.Add(new ComboData { Id = ++j, Value = Groups[i].Name });
@@ -55,6 +58,7 @@ namespace TimeTable
             OpenGroupsPageCommand = new LambdaCommand(OnOpenGroupsPageCommandExecuted, CanOpenGroupsPageCommandExecute);
             OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
             OpenSubjectsPageCommand = new LambdaCommand(OnOpenSubjectsPageCommandExecuted, CanOpenSubjectsPageCommandExecute);
+            OpenUsersPageCommand = new LambdaCommand(OnOpenUsersPageCommandExecuted, CanOpenUsersPageCommandExecute);
         }
 
         #region Command
@@ -130,6 +134,25 @@ namespace TimeTable
                 {
                     SubjectsPageProp = new SubjectsPage();
                     Page = SubjectsPageProp;
+                }
+            }
+        }
+
+        public ICommand OpenUsersPageCommand { get; }
+        private bool CanOpenUsersPageCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnOpenUsersPageCommandExecuted(object p)
+        {
+            if (Page is not UsersPage)
+            {
+                if (UsersPageProp != null)
+                    Page = UsersPageProp;
+                else
+                {
+                    UsersPageProp = new UsersPage();
+                    Page = UsersPageProp;
                 }
             }
         }
