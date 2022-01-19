@@ -1,0 +1,64 @@
+﻿<Page x:Class="TimeTable.Pages.StudentInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeTable.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="940"
+      Title="StudentInfoPage">
+
+    <Grid>
+        <Border Margin="10" Background="#FF252424" CornerRadius="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10" CanVerticallyScroll="True">
+                    <Image x:Name="Photo" Width="150" HorizontalAlignment="Left" Margin="10">
+
+                    </Image>
+                    <TextBlock Text="Логин:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtLogin" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                    <TextBlock Text="Пароль:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtPass" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                    <TextBlock Text="ФИО:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtName" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                    <TextBlock Text="Группа:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtGroupe" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                    <TextBlock Text="Телефон:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtPhone" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                    <TextBlock Text="Email:" Margin="10 5"
+                               FontSize="14" FontWeight="Bold"
+                               Foreground="WhiteSmoke"/>
+                    <TextBox x:Name="txtEmail" IsReadOnly="True" Padding="5" Margin="10 5" BorderBrush="{x:Null}" FontSize="14" 
+                             Background="#66525252" 
+                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
+                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0" Cursor="IBeam"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

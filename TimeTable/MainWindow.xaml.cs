@@ -20,6 +20,7 @@ namespace TimeTable
     {
         List<User>? users = null;
         MainDataWindow? mainDataWindow = null;
+        StudentMainWindow? studentMainWindow = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -62,9 +63,18 @@ namespace TimeTable
             User? user = users?.FirstOrDefault(u => u.Login == txtLogin.Text && u.Password == txtPW.Password);
             if (user != null)
             {
-                mainDataWindow = new MainDataWindow(user) { Owner = this };
-                mainDataWindow.Show();
-                this.Hide();
+                if (user.Status.ToLower() == "admin")
+                {
+                    mainDataWindow = new MainDataWindow(user) { Owner = this };
+                    mainDataWindow.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    studentMainWindow = new StudentMainWindow(user) { Owner = this };
+                    studentMainWindow.Show();
+                    this.Hide();
+                }
             }
             else
             {
