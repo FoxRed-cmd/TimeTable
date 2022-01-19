@@ -111,7 +111,17 @@ namespace TimeTable
                 command.ExecuteNonQuery();
             }
         }
+        public static void DeleteTimeTableByGroup(string group)
+        {
+            string expression = $@"DELETE FROM TimeTable WHERE GroupName='{group}'";
 
+            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            {
+                sqliteConnection.Open();
+                SqliteCommand command = new(expression, sqliteConnection);
+                command.ExecuteNonQuery();
+            }
+        }
         public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

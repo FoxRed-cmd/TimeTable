@@ -32,7 +32,7 @@ namespace TimeTable.Pages
             var groups = dataGridGroups.SelectedItems;
             if (groups.Count != 0)
             {
-                if (DialogResult.OK == System.Windows.Forms.MessageBox.Show("Внимание! При удалении группы студенты этой группы также будут удалены! Вы уверены?", "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+                if (DialogResult.OK == System.Windows.Forms.MessageBox.Show("Внимание! При удалении группы студенты и расписание этой группы также будут удалены! Вы уверены?", "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
                 {
                     try
                     {
@@ -40,6 +40,7 @@ namespace TimeTable.Pages
                         {
                             Group group = item as Group;
                             Student.DeleteStudentByGroup(group.Name);
+                            TimeTableModel.DeleteTimeTableByGroup(group.Name);
                             Group.DeleteGroupByName(group.Name);
                         }
                         dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
