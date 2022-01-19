@@ -84,19 +84,34 @@
                     <TextBlock Text="День недели:" Margin="10 5"
                                FontSize="14" FontWeight="Bold"
                                Foreground="WhiteSmoke"/>
-                    <TextBox x:Name="txtDay" Padding="8" Margin="10 10" BorderBrush="{x:Null}" FontSize="14" 
-                             Background="#66525252" 
-                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
-                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0">
-                    </TextBox>
+                    <ComboBox x:Name="txtDay" Padding="8" Margin="10 10" FontSize="14" 
+                              Background="#66525252" 
+                              Foreground="#FFFF5D00"
+                              HorizontalContentAlignment="Left"
+                              FontWeight="Bold">
+                        <TextBlock>Понедельник</TextBlock>
+                        <TextBlock>Вторник</TextBlock>
+                        <TextBlock>Среда</TextBlock>
+                        <TextBlock>Четверг</TextBlock>
+                        <TextBlock>Пятница</TextBlock>
+                        <TextBlock>Суббота</TextBlock>
+                    </ComboBox>
                     <TextBlock Text="Время:" Margin="10 5"
                                FontSize="14" FontWeight="Bold"
                                Foreground="WhiteSmoke"/>
-                    <TextBox x:Name="txtTime" Padding="8" Margin="10 10" BorderBrush="{x:Null}" FontSize="14" 
-                             Background="#66525252" 
-                             CaretBrush="White" SelectionBrush="#FF2F64CA" 
-                             Foreground="White" RenderTransformOrigin="0.5,0.5" TabIndex="0">
-                    </TextBox>
+                    <ComboBox x:Name="txtTime" Padding="8" Margin="10 10" FontSize="14" 
+                              Background="#66525252" 
+                              Foreground="#FFFF5D00"
+                              HorizontalContentAlignment="Left"
+                              FontWeight="Bold">
+                        <TextBlock>8:30</TextBlock>
+                        <TextBlock>10:10</TextBlock>
+                        <TextBlock>12:00</TextBlock>
+                        <TextBlock>14:00</TextBlock>
+                        <TextBlock>15:50</TextBlock>
+                        <TextBlock>17:40</TextBlock>
+                        <TextBlock>19:20</TextBlock>
+                    </ComboBox>
                 </StackPanel>
                 <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
                     <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" 

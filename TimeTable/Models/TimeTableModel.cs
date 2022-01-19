@@ -42,7 +42,7 @@ namespace TimeTable
         }
         public static void AddTimeTable(TimeTableModel timeTableModel)
         {
-            string expression = $@"INSERT INTO TimeTable (IDTable, Subject, GroupName, DayOfWeek, Time) VALUES ({timeTableModel.Id}, '{timeTableModel.Subject}', '{timeTableModel.Group}', '{timeTableModel.DayOfWeek}', '{timeTableModel.Time}')";
+            string expression = $@"INSERT INTO TimeTable (Subject, GroupName, DayOfWeek, Time) VALUES ('{timeTableModel.Subject}', '{timeTableModel.Group}', '{timeTableModel.DayOfWeek}', '{timeTableModel.Time}')";
             using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();

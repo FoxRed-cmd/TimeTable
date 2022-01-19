@@ -13,42 +13,44 @@
         <vm:MainDataViewModel/>
     </Page.DataContext>
     <Grid>
-        <StackPanel>
-            <WrapPanel Margin="10,10,10,10">
-                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Cursor="Hand" Click="AddButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Добавить" Margin="0 0 5 0"/>
-                        <fa5:SvgAwesome Icon="Solid_UserPlus" Foreground="#2B3900"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Click="EditButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Редактировать" Margin="0 0 5 0"/>
-                        <fa5:SvgAwesome Icon="Solid_Edit" Foreground="#2B3900"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" 
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <WrapPanel Margin="10,10,10,10">
+                    <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Cursor="Hand" Click="AddButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Добавить" Margin="0 0 5 0"/>
+                            <fa5:SvgAwesome Icon="Solid_UserPlus" Foreground="#2B3900"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Click="EditButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Редактировать" Margin="0 0 5 0"/>
+                            <fa5:SvgAwesome Icon="Solid_Edit" Foreground="#2B3900"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" 
                         Padding="10" Height="38" Margin="0 0 10 0" Cursor="Hand" Click="DeleteButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Удалить" Margin="0 0 5 0"/>
-                        <fa5:SvgAwesome Icon="Solid_Trash" Foreground="#2B3900"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Cursor="Hand"
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Удалить" Margin="0 0 5 0"/>
+                            <fa5:SvgAwesome Icon="Solid_Trash" Foreground="#2B3900"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0" Cursor="Hand"
                         Click="RefreshButton_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <fa5:SvgAwesome Icon="Solid_SyncAlt" Foreground="#2B3900" Width="18"/>
-                    </StackPanel>
-                </Button>
-            </WrapPanel>
-            <DataGrid x:Name="dataGridUsers" Margin="10,10,10,10" ItemsSource="{Binding Users}" AutoGenerateColumns="False"
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:SvgAwesome Icon="Solid_SyncAlt" Foreground="#2B3900" Width="18"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+                <DataGrid x:Name="dataGridUsers" Margin="10,10,10,10" ItemsSource="{Binding Users}" AutoGenerateColumns="False"
                   IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="*"/>
-                    <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="1*"/>
-                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="1*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="*"/>
+                        <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="1*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid> 
 </Page>

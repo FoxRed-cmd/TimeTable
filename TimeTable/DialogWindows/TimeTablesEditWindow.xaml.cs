@@ -45,7 +45,7 @@ namespace TimeTable.DialogWindows
         {
             if (txtTitle.Text == "Добавить")
             {
-                if (txtID.Text != "" && txtSub.Text != "" && txtGroup.Text != "" && txtDay.Text != "" && txtTime.Text != "")
+                if (txtSub.Text != "" && txtGroup.Text != "" && txtDay.Text != "" && txtTime.Text != "")
                 {
                     try
                     {
@@ -59,8 +59,6 @@ namespace TimeTable.DialogWindows
                         };
                         TimeTableModel.AddTimeTable(timeTableModel);
                         txtID.Clear();
-                        txtDay.Clear();
-                        txtTime.Clear();
                         TimeTablesPage.dataGridTimeTables.ItemsSource = TimeTableModel.GetAllDataFromTable();
                     }
                     catch (Exception ex)
