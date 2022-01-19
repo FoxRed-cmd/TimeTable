@@ -43,7 +43,7 @@
                     </Button>
                 </WrapPanel>
                 <DataGrid x:Name="dataGridGroups" Margin="10,10,10,10" ItemsSource="{Binding Groups}" AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True" MaxHeight="800" VerticalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Группа" Binding="{Binding Name}" Width="*"/>
                         <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="3*"/>

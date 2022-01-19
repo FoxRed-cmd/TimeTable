@@ -43,7 +43,7 @@
                     </Button>
                 </WrapPanel>
                 <DataGrid x:Name="dataGridUsers" Margin="10,10,10,10" ItemsSource="{Binding Users}" AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True" MaxHeight="800" VerticalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="*"/>
                         <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="1*"/>
