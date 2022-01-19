@@ -1,0 +1,233 @@
+﻿<Page x:Class="TimeTable.Pages.TimeTableForStudentInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeTable.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="940"
+      Title="TimeTableForStudentInfoPage">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2B3900"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="Width" Value="270"/>
+        </Style>
+        <Style TargetType="Rectangle">
+            <Setter Property="Width" Value="300"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock Text="Понедельник"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M1" Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M2" Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="M7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock Text="Вторник"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T1" Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T2"  Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="T7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock Text="Среда"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W1" Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W2" Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="W7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock Text="Четверг"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH1" Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH2" Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="TH7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock x:Name="F1" Text="Пятница"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F2" Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="F7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
+                        Width="300">
+                    <StackPanel Orientation="Vertical" MaxWidth="300">
+                        <TextBlock Text="Суббота"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S1" Text="8:30 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S2" Text="10:10 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S3" Text="12:00 - "/>
+                        </StackPanel>
+                        <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S4" Text="14:00 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S5" Text="15:50 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S6" Text="17:40 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="S7" Text="19:20 - "/>
+                        </StackPanel>
+                        <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

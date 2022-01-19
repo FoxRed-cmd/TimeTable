@@ -10,6 +10,7 @@ namespace TimeTable
         private bool _isShow = false;
         private string login;
         public StudentInfoPage StudentInfo { get; set; }
+        public TimeTableForStudentInfoPage TimeTableForStudentInfo { get; set; }
         public StudentMainWindow(User user)
         {
             InitializeComponent();
@@ -80,5 +81,24 @@ namespace TimeTable
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (TimeTableForStudentInfo != null)
+            {
+                if (MainFrame.Content is not TimeTableForStudentInfoPage)
+                {
+                    MainFrame.Content = TimeTableForStudentInfo;
+                }
+            }
+            else
+            {
+                if (MainFrame.Content is not TimeTableForStudentInfoPage)
+                {
+                    TimeTableForStudentInfo = new TimeTableForStudentInfoPage(Student.GetStudentByLogin(login));
+                    MainFrame.Content = TimeTableForStudentInfo;
+                }
+            }
+        }
     }
 }

@@ -40,6 +40,34 @@ namespace TimeTable
             }
             return timeTables;
         }
+        public static IEnumerable<TimeTableModel> GetTimeTableByGroup(string groupName)
+        {
+            List<TimeTableModel> timeTables = new();
+            string expression = $@"SELECT IDTable as id, Subject as subject, GroupName as groupName,
+                                DayOfWeek as day, Time as time
+                                FROM TimeTable WHERE GroupName = '{groupName}'";
+            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            {
+                sqliteConnection.Open();
+                SqliteCommand command = new(expression, sqliteConnection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            timeTables.Add(new TimeTableModel()
+                            {
+                                Id = reader["id"].ToString() ?? string.Empty,
+                                Subject = reader["subject"].ToString() ?? string.Empty,
+                                Group = reader["groupName"].ToString() ?? string.Empty,
+                                DayOfWeek = reader["day"].ToString() ?? string.Empty,
+                                Time = reader["time"].ToString() ?? string.Empty
+                            });
+                    }
+                }
+            }
+            return timeTables;
+        }
         public static void AddTimeTable(TimeTableModel timeTableModel)
         {
             string expression = $@"INSERT INTO TimeTable (Subject, GroupName, DayOfWeek, Time) VALUES ('{timeTableModel.Subject}', '{timeTableModel.Group}', '{timeTableModel.DayOfWeek}', '{timeTableModel.Time}')";
