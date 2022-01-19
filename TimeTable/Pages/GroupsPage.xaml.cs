@@ -51,5 +51,10 @@ namespace TimeTable.Pages
                 }
             }
         }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
+        }
     }
 }

@@ -31,7 +31,6 @@ namespace TimeTable.DialogWindows
             txtTitle.Text = "Редактировать";
             currentTimeTable = timeTableModel.Id;
             txtID.Text = timeTableModel.Id;
-            txtID.IsEnabled = false;
             txtSub.Text = timeTableModel.Subject;
             txtGroup.Text = timeTableModel.Group;
             txtDay.Text = timeTableModel.DayOfWeek;

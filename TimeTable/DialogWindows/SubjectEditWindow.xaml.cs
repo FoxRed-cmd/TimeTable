@@ -15,52 +15,51 @@ using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
-    public partial class GroupEditWindow : Window
+    
+    public partial class SubjectEditWindow : Window
     {
-        private Group group;
-        private string currentGroup;
-        public GroupsPage GroupsPage { get; set; }
-        public GroupEditWindow()
+        private SubjectModel subjectModel;
+        private string currentSubject;
+        public SubjectsPage SubjectsPageModel { get; set; }
+        public SubjectEditWindow()
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
         }
-
-        public GroupEditWindow(Group group)
+        public SubjectEditWindow(SubjectModel subject)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
-            currentGroup = group.Name;
-            txtGroup.Text = group.Name;
-            txtDesc.Text = group.Description;
-            txtTime.Text = group.TrainingPeriod;
-            txtForm.Text = group.FormOfStudy;
+            currentSubject = subject.SubjectName;
+            txtSub.Text = subject.SubjectName;
+            txtDesc.Text = subject.Description;
+            txtTeacher.Text = subject.TeacherName;
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
-        private void CloseButton_Click(object sender, RoutedEventArgs e) => this.Close();
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => this.DragMove();
+
+        private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
+
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (txtTitle.Text == "Добавить")
             {
-                if (txtGroup.Text != "" && txtTime.Text != "" && txtForm.Text != "")
+                if (txtSub.Text != "" && txtTeacher.Text != "")
                 {
                     try
                     {
-                        group = new Group()
+                        subjectModel = new SubjectModel()
                         {
-                            Name = txtGroup.Text,
+                            SubjectName = txtSub.Text,
                             Description = txtDesc.Text,
-                            TrainingPeriod = txtTime.Text,
-                            FormOfStudy = txtForm.Text,
+                            TeacherName = txtTeacher.Text,
                         };
-                        Group.AddGroup(group);
-                        txtGroup.Clear();
+                        SubjectModel.AddSubject(subjectModel);
+                        txtTeacher.Clear();
+                        txtSub.Clear();
                         txtDesc.Clear();
-                        txtTime.Clear();
-                        txtForm.Clear();
-                        GroupsPage.dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
-                        
+                        SubjectsPageModel.dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
+
                     }
                     catch (Exception ex)
                     {
@@ -69,23 +68,22 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Группа, Время обучения и Форма обучения - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Предмет и Преподаватель - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                if (txtGroup.Text != "" && txtTime.Text != "" && txtForm.Text != "")
+                if (txtSub.Text != "" && txtTeacher.Text != "")
                 {
                     try
                     {
-                        group = new Group()
+                        subjectModel = new SubjectModel()
                         {
-                            Name = txtGroup.Text,
+                            SubjectName = txtSub.Text,
                             Description = txtDesc.Text,
-                            TrainingPeriod = txtTime.Text,
-                            FormOfStudy = txtForm.Text,
+                            TeacherName = txtTeacher.Text,
                         };
-                        Group.UpdateGroup(group, currentGroup);
-                        GroupsPage.dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
+                        SubjectModel.UpdateSubject(subjectModel, currentSubject);
+                        SubjectsPageModel.dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
                         this.Close();
                     }
                     catch (Exception ex)

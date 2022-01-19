@@ -168,7 +168,7 @@
                         </Grid>
                     </Button>
                     <Button Style="{StaticResource btnDef}" HorizontalContentAlignment="Left"
-                            Padding="10 10 0 10">
+                            Padding="10 10 0 10" Command="{Binding OpenSubjectsPageCommand}">
                         <Grid>
                             <TextBlock Text="Предметы" HorizontalAlignment="Center" Width="126"
                                        FontSize="16"/>

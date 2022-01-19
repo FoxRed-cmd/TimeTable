@@ -34,6 +34,12 @@
                         <fa5:SvgAwesome Icon="Solid_Trash" Foreground="#2B3900"/>
                     </StackPanel>
                 </Button>
+                <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0"
+                        Click="RefreshButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:SvgAwesome Icon="Solid_SyncAlt" Foreground="#2B3900" Width="18"/>
+                    </StackPanel>
+                </Button>
             </WrapPanel>
             <DataGrid x:Name="dataGridStudents" Margin="10,10,10,10" ItemsSource="{Binding Students}" AutoGenerateColumns="False"
                   IsReadOnly="True">

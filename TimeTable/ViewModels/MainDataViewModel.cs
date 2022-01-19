@@ -24,6 +24,7 @@ namespace TimeTable
         public StudentsPage StudentsPageProp { get; set; }
         public GroupsPage GroupsPageProp { get; set; }
         public TimeTablesPage TimeTablesPageProp { get; set; }
+        public SubjectsPage SubjectsPageProp { get; set; }
         public List<ComboData> ComboDataGroup { get; set; }
         public List<ComboData> ComboDataSubject { get; set; }
         public List<Student> Students { get; set; }
@@ -53,6 +54,7 @@ namespace TimeTable
             OpenStudentsPageCommand = new LambdaCommand(OnOpenStudentsPageCommandExecuted, CanOpenStudentsPageCommandExecute);
             OpenGroupsPageCommand = new LambdaCommand(OnOpenGroupsPageCommandExecuted, CanOpenGroupsPageCommandExecute);
             OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
+            OpenSubjectsPageCommand = new LambdaCommand(OnOpenSubjectsPageCommandExecuted, CanOpenSubjectsPageCommandExecute);
         }
 
         #region Command
@@ -109,6 +111,25 @@ namespace TimeTable
                 {
                     TimeTablesPageProp = new TimeTablesPage();
                     Page = TimeTablesPageProp;
+                }
+            }
+        }
+
+        public ICommand OpenSubjectsPageCommand { get; }
+        private bool CanOpenSubjectsPageCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnOpenSubjectsPageCommandExecuted(object p)
+        {
+            if (Page is not SubjectsPage)
+            {
+                if (SubjectsPageProp != null)
+                    Page = SubjectsPageProp;
+                else
+                {
+                    SubjectsPageProp = new SubjectsPage();
+                    Page = SubjectsPageProp;
                 }
             }
         }

@@ -72,6 +72,17 @@ namespace TimeTable
                 command.ExecuteNonQuery();
             }
         }
+        public static void DeleteTimeTableBySubject(string subject)
+        {
+            string expression = $@"DELETE FROM TimeTable WHERE Subject='{subject}'";
+
+            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            {
+                sqliteConnection.Open();
+                SqliteCommand command = new(expression, sqliteConnection);
+                command.ExecuteNonQuery();
+            }
+        }
 
         public override string ToString() => JsonSerializer.Serialize(this);
     }
