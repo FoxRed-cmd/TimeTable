@@ -31,6 +31,7 @@ namespace TimeTable.DialogWindows
             InitializeComponent();
             txtTitle.Text = "Редактировать";
             currentGroup = group.Name;
+            txtGroup.IsEnabled = false;
             txtGroup.Text = group.Name;
             txtDesc.Text = group.Description;
             txtTime.Text = group.TrainingPeriod;

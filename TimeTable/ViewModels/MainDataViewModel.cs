@@ -14,7 +14,8 @@ namespace TimeTable
     internal class MainDataViewModel : ViewModel
     {
         private Page page;
-        private List<ComboData> comboDatas = new List<ComboData>();
+        private List<ComboData> comboDatasGroup = new List<ComboData>();
+        private List<ComboData> comboDatasSubject = new List<ComboData>();
         public Page Page
         {
             get { return page; }
@@ -22,23 +23,36 @@ namespace TimeTable
         }
         public StudentsPage StudentsPageProp { get; set; }
         public GroupsPage GroupsPageProp { get; set; }
-        public List<ComboData> ComboData { get; set; }
+        public TimeTablesPage TimeTablesPageProp { get; set; }
+        public List<ComboData> ComboDataGroup { get; set; }
+        public List<ComboData> ComboDataSubject { get; set; }
         public List<Student> Students { get; set; }
         public List<Group> Groups { get; set; }
+        public List<TimeTableModel> TimeTableModels { get; set; }
+        public List<SubjectModel> SubjectModels { get; set; }
 
         public MainDataViewModel()
         {
             Page = new WelcomePage();
             Students = Student.GetAllDataFromTable().ToList();
             Groups = Group.GetAllDataFromTable().ToList();
+            TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
+            SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
             for (int i = 0, j = 0; i < Groups.Count; i++)
             {
-                comboDatas.Add(new ComboData { Id = ++j, Value = Groups[i].Name });
+                comboDatasGroup.Add(new ComboData { Id = ++j, Value = Groups[i].Name });
             }
-            ComboData = comboDatas;
+            for (int i = 0, j = 0; i < SubjectModels.Count; i++)
+            {
+                comboDatasSubject.Add(new ComboData { Id = ++j, Value = SubjectModels[i].SubjectName });
+            }
+            
+            ComboDataGroup = comboDatasGroup;
+            ComboDataSubject = comboDatasSubject;
 
             OpenStudentsPageCommand = new LambdaCommand(OnOpenStudentsPageCommandExecuted, CanOpenStudentsPageCommandExecute);
             OpenGroupsPageCommand = new LambdaCommand(OnOpenGroupsPageCommandExecuted, CanOpenGroupsPageCommandExecute);
+            OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
         }
 
         #region Command
@@ -76,6 +90,25 @@ namespace TimeTable
                 {
                     GroupsPageProp = new GroupsPage();
                     Page = GroupsPageProp;
+                }
+            }
+        }
+
+        public ICommand OpenTimeTablesPageCommand { get; }
+        private bool CanOpenTimeTablesPageCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnOpenTimeTablesPageCommandExecuted(object p)
+        {
+            if (Page is not TimeTablesPage)
+            {
+                if (TimeTablesPageProp != null)
+                    Page = TimeTablesPageProp;
+                else
+                {
+                    TimeTablesPageProp = new TimeTablesPage();
+                    Page = TimeTablesPageProp;
                 }
             }
         }

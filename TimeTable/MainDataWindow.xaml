@@ -156,7 +156,7 @@
                         </Grid>
                     </Button>
                     <Button Style="{StaticResource btnDef}" HorizontalContentAlignment="Left"
-                            Padding="10 10 0 10">
+                            Padding="10 10 0 10" Command="{Binding OpenTimeTablesPageCommand}">
                         <Grid>
                             <TextBlock Text="Расписан." HorizontalAlignment="Right" Width="126"
                                        FontSize="16"/>
