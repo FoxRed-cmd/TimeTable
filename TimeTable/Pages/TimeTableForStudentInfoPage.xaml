@@ -8,25 +8,31 @@
       d:DesignHeight="640" d:DesignWidth="940"
       Title="TimeTableForStudentInfoPage">
     <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="TitleStyle">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2B3900"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
         <Style TargetType="TextBlock">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#2B3900"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            <Setter Property="Width" Value="270"/>
         </Style>
-        <Style TargetType="Rectangle">
-            <Setter Property="Width" Value="300"/>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="#FFEAAB00"/>
         </Style>
     </Page.Resources>
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
-            <StackPanel Orientation="Horizontal">
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock Text="Понедельник"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Понедельник"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="M1" Text="8:30 - "/>
                         </StackPanel>
@@ -57,10 +63,9 @@
                         <Rectangle Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
                     </StackPanel>
                 </Border>
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock Text="Вторник"/>
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Вторник"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="T1" Text="8:30 - "/>
                         </StackPanel>
@@ -91,10 +96,9 @@
                         <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
                     </StackPanel>
                 </Border>
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock Text="Среда"/>
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Среда"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="W1" Text="8:30 - "/>
                         </StackPanel>
@@ -125,10 +129,9 @@
                         <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
                     </StackPanel>
                 </Border>
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock Text="Четверг"/>
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Четверг"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="TH1" Text="8:30 - "/>
                         </StackPanel>
@@ -159,10 +162,9 @@
                         <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
                     </StackPanel>
                 </Border>
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock x:Name="F1" Text="Пятница"/>
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" x:Name="F1" Text="Пятница"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="8:30 - "/>
                         </StackPanel>
@@ -193,10 +195,9 @@
                         <Rectangle  Height="3" Fill="#2B3900" RadiusX="2" RadiusY="2"></Rectangle>
                     </StackPanel>
                 </Border>
-                <Border Background="#AEEA00" Margin="10" CornerRadius="10" Padding="10"
-                        Width="300">
-                    <StackPanel Orientation="Vertical" MaxWidth="300">
-                        <TextBlock Text="Суббота"/>
+                <Border Margin="10" CornerRadius="10" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TitleStyle}" Text="Суббота"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="S1" Text="8:30 - "/>
                         </StackPanel>
