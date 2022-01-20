@@ -58,5 +58,35 @@ namespace TimeTable
                     break;
             }
         }
+
+        private void StudentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isShow == true)
+                animButton_Click(sender, e);
+        }
+
+        private void GroupsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isShow == true)
+                animButton_Click(sender, e);
+        }
+
+        private void TimeTableButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isShow == true)
+                animButton_Click(sender, e);
+        }
+
+        private void SubjectsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isShow == true)
+                animButton_Click(sender, e);
+        }
+
+        private void UsersButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isShow == true)
+                animButton_Click(sender, e);
+        }
     }
 }

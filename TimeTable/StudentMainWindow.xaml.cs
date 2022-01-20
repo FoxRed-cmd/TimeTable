@@ -67,6 +67,11 @@ namespace TimeTable
                 }
             }
 
+            if (_isShow == true)
+            {
+                animButton_Click(sender, e);
+            }
+
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -98,6 +103,11 @@ namespace TimeTable
                     TimeTableForStudentInfo = new TimeTableForStudentInfoPage(Student.GetStudentByLogin(login));
                     MainFrame.Content = TimeTableForStudentInfo;
                 }
+            }
+
+            if (_isShow == true)
+            {
+                animButton_Click(sender, e);
             }
         }
     }
