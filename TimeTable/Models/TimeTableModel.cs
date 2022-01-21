@@ -7,6 +7,9 @@ namespace TimeTable
     public class TimeTableModel
     {
         private static string? expression;
+        private static SqliteConnection? sqliteConnection;
+        private static SqliteCommand? command;
+        private static SqliteDataReader? reader;
         public string Id { get; set; }
         public string Subject { get; set; }
         public string Group { get; set; }
@@ -18,11 +21,11 @@ namespace TimeTable
             expression = @"SELECT IDTable as id, Subject as subject, GroupName as groupName,
                                 DayOfWeek as day, Time as time
                                 FROM TimeTable";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -44,11 +47,11 @@ namespace TimeTable
             expression = $@"SELECT IDTable as id, Subject as subject, GroupName as groupName,
                                 DayOfWeek as day, Time as time
                                 FROM TimeTable WHERE GroupName = '{groupName}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -68,10 +71,10 @@ namespace TimeTable
         public static void AddTimeTable(TimeTableModel timeTableModel)
         {
             expression = $@"INSERT INTO TimeTable (Subject, GroupName, DayOfWeek, Time) VALUES ('{timeTableModel.Subject}', '{timeTableModel.Group}', '{timeTableModel.DayOfWeek}', '{timeTableModel.Time}')";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -79,10 +82,10 @@ namespace TimeTable
         {
             expression = $@"UPDATE TimeTable SET Subject='{timeTableModel.Subject}', GroupName='{timeTableModel.Group}', DayOfWeek='{timeTableModel.DayOfWeek}', Time='{timeTableModel.Time}' WHERE IDTable='{currentID}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -90,10 +93,10 @@ namespace TimeTable
         {
             expression = $@"DELETE FROM TimeTable WHERE IDTable={id}";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -101,10 +104,10 @@ namespace TimeTable
         {
             expression = $@"DELETE FROM TimeTable WHERE Subject='{subject}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -112,10 +115,10 @@ namespace TimeTable
         {
             expression = $@"DELETE FROM TimeTable WHERE GroupName='{group}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }

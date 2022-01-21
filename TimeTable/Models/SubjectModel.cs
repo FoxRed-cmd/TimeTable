@@ -6,6 +6,9 @@ namespace TimeTable
     public class SubjectModel
     {
         private static string? expression;
+        private static SqliteConnection? sqliteConnection;
+        private static SqliteCommand? command;
+        private static SqliteDataReader? reader;
         public string SubjectName { get; set; }
         public string Description { get; set; }
         public string TeacherName { get; set; }
@@ -14,11 +17,11 @@ namespace TimeTable
         {
             expression = @"SELECT SubjectName as name, Description as desc, TeacherName as tn
                                 FROM Subject";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -40,10 +43,10 @@ namespace TimeTable
             else
                 expression = $@"INSERT INTO Subject (SubjectName, Description, TeacherName) VALUES ('{subject.SubjectName}', null, '{subject.TeacherName}')";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -54,20 +57,20 @@ namespace TimeTable
             else
                 expression = $@"UPDATE Subject SET SubjectName='{subject.SubjectName}', Description=null, TeacherName='{subject.TeacherName}' WHERE SubjectName='{currentSub}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
         public static void DeleteSubjectByName(string name)
         {
             expression = $@"DELETE FROM Subject WHERE SubjectName='{name}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new SqliteCommand(expression, sqliteConnection);
+                command = new SqliteCommand(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }

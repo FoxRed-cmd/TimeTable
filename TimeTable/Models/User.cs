@@ -7,6 +7,9 @@ namespace TimeTable
     public class User
     {
         private static string? expression;
+        private static SqliteConnection? sqliteConnection;
+        private static SqliteCommand? command;
+        private static SqliteDataReader? reader;
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
@@ -16,11 +19,11 @@ namespace TimeTable
             expression = @"SELECT Login as login, Password as pass, Status as status
                                 FROM Users";
 
-            using (SqliteConnection sqliteConnection = new("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -36,11 +39,11 @@ namespace TimeTable
                                 FROM Users
                                 WHERE Login = '{login}'";
 
-            using (SqliteConnection sqliteConnection = new("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -55,10 +58,10 @@ namespace TimeTable
         {
             expression = $@"INSERT INTO Users (Login, Password, Status) VALUES ('{user.Login}', '{user.Password}', '{user.Status}')";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -67,10 +70,10 @@ namespace TimeTable
         {
             expression = $@"UPDATE Users SET Login='{user.Login}', Password='{user.Password}', Status='{user.Status}' WHERE Login='{login}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -79,10 +82,10 @@ namespace TimeTable
         {
             expression = $@"DELETE FROM Users WHERE Login='{login}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }

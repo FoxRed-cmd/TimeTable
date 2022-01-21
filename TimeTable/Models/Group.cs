@@ -7,6 +7,9 @@ namespace TimeTable
     public class Group
     {
         private static string? expression;
+        private static SqliteConnection? sqliteConnection;
+        private static SqliteCommand? command;
+        private static SqliteDataReader? reader;
         public string Name { get; set; }
         public string? Description { get; set; }
         public string TrainingPeriod { get; set; }
@@ -17,11 +20,11 @@ namespace TimeTable
             expression = @"SELECT GroupName as name, Description as description, TrainingPeriod as trainingPeriod,
                                 FormOfStudy as formOfStudy
                                 FROM Groups";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -44,10 +47,10 @@ namespace TimeTable
             else
                 expression = $@"INSERT INTO Groups (GroupName, Description, TrainingPeriod, FormOfStudy) VALUES ('{group.Name}', null, '{group.TrainingPeriod}', '{group.FormOfStudy}')";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -58,20 +61,20 @@ namespace TimeTable
             else
                 expression = $@"UPDATE Groups SET GroupName='{group.Name}', Description=null, TrainingPeriod='{group.TrainingPeriod}', FormOfStudy='{group.FormOfStudy}' WHERE GroupName='{currentGroup}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
         public static void DeleteGroupByName(string groupName)
         {
             expression = $@"DELETE FROM Groups WHERE GroupName='{groupName}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new SqliteCommand(expression, sqliteConnection);
+                command = new SqliteCommand(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }

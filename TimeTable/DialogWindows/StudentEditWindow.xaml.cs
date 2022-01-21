@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ namespace TimeTable.DialogWindows
         private User user;
         private string currentLogin;
         private byte[] photo;
+        private Task task;
         internal StudentsPage StudentPage { get; set; }
         public StudentEditWindow()
         {
@@ -69,13 +71,13 @@ namespace TimeTable.DialogWindows
                             Phone = txtPhone.Text,
                             Email = txtEmail.Text,
                         };
-                        Student.AddStudent(student);
                         user = new User()
                         {
                             Login = txtLogin.Text,
                             Password = txtPass.Text,
                             Status = "Student"
                         };
+                        Student.AddStudent(student);
                         User.AddUser(user);
                         txtEmail.Clear();
                         txtName.Clear();
@@ -108,13 +110,13 @@ namespace TimeTable.DialogWindows
                             Phone = txtPhone.Text,
                             Email = txtEmail.Text,
                         };
-                        Student.UpdateStudent(student, currentLogin);
                         user = new User()
                         {
                             Login = txtLogin.Text,
                             Password = txtPass.Text,
                             Status = "Student"
                         };
+                        Student.UpdateStudent(student, currentLogin);
                         User.UpdateUser(user, currentLogin);
                         StudentPage.dataGridStudents.ItemsSource = Student.GetAllDataFromTable().ToList();
                         this.Close();

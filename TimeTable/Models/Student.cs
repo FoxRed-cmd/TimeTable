@@ -9,6 +9,9 @@ namespace TimeTable
     public class Student
     {
         private static string? expression;
+        private static SqliteConnection? sqliteConnection;
+        private static SqliteCommand? command;
+        private static SqliteDataReader? reader;
         public string Login { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
@@ -21,11 +24,11 @@ namespace TimeTable
             expression = @"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -45,15 +48,15 @@ namespace TimeTable
         }
         public static Student GetStudentByLogin(string login)
         {
-            string expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
+            expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students 
                                 WHERE LoginOfStudents = '{login}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -78,11 +81,11 @@ namespace TimeTable
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students 
                                 WHERE GroupName = '{groupName}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
-                using (SqliteDataReader reader = command.ExecuteReader())
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {
@@ -114,10 +117,10 @@ namespace TimeTable
                 expression = @$"INSERT INTO Students (LoginOfStudents, GroupName, Name, Photo, Phone, Email) VALUES ('{student.Login}', '{student.Group}', '{student.Name}', @photo, '{student.Phone}', '{student.Email}')";
 
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 if (student.Photo != null)
                     command.Parameters.Add("@photo", Microsoft.Data.Sqlite.SqliteType.Blob, student.Photo.Length).Value = student.Photo;
                 command.ExecuteNonQuery();
@@ -136,10 +139,10 @@ namespace TimeTable
             else
                 expression = @$"UPDATE Students SET LoginOfStudents='{student.Login}', GroupName='{student.Group}', Name='{student.Name}', Photo=@photo, Phone='{student.Phone}', Email='{student.Email}' WHERE LoginOfStudents='{login}'";
 
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 if (student.Photo != null)
                     command.Parameters.Add("@photo", Microsoft.Data.Sqlite.SqliteType.Blob, student.Photo.Length).Value = student.Photo;
                 command.ExecuteNonQuery();
@@ -148,20 +151,20 @@ namespace TimeTable
         public static void UpdateStudentLogin(string oldLogin, string newLogin)
         {
             expression = $@"UPDATE Students SET LoginOfStudents='{newLogin}' WHERE LoginOfStudents='{oldLogin}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new(expression, sqliteConnection);
+                command = new(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
         public static void DeleteStudentByLogin(string login)
         {
             expression = $@"DELETE FROM Students WHERE LoginOfStudents='{login}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new SqliteCommand(expression, sqliteConnection);
+                command = new SqliteCommand(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
@@ -169,10 +172,10 @@ namespace TimeTable
         {
             GetStudentsByGroup(groupName).ToList().ForEach(student => User.DeleteUserByLogin(student.Login));
             expression = $@"DELETE FROM Students WHERE GroupName='{groupName}'";
-            using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
-                SqliteCommand command = new SqliteCommand(expression, sqliteConnection);
+                command = new SqliteCommand(expression, sqliteConnection);
                 command.ExecuteNonQuery();
             }
         }
