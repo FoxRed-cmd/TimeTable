@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TimeTable.Pages
 {
@@ -29,13 +18,13 @@ namespace TimeTable.Pages
                     {
                         switch (item.Time)
                         {
-                            case "8:30": M1.Text += item.Subject; break; 
-                            case "10:10": M2.Text += item.Subject; break; 
-                            case "12:00": M3.Text += item.Subject; break; 
-                            case "14:00": M4.Text += item.Subject; break; 
-                            case "15:50": M5.Text += item.Subject; break; 
-                            case "17:40": M6.Text += item.Subject; break; 
-                            case "19:20": M7.Text += item.Subject; break; 
+                            case "8:30": M1.Text += item.Subject; break;
+                            case "10:10": M2.Text += item.Subject; break;
+                            case "12:00": M3.Text += item.Subject; break;
+                            case "14:00": M4.Text += item.Subject; break;
+                            case "15:50": M5.Text += item.Subject; break;
+                            case "17:40": M6.Text += item.Subject; break;
+                            case "19:20": M7.Text += item.Subject; break;
                             default:
                                 break;
                         }

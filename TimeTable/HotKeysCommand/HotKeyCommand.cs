@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace TimeTable
 {
@@ -16,6 +11,6 @@ namespace TimeTable
             inputs.Add(new KeyGesture(Key.Q, ModifierKeys.Control, "Ctrl+Q"));
             OpenMenuCommand = new RoutedUICommand("Some", "SomeCommand", typeof(HotKeyCommand), inputs);
         }
-        
+
     }
 }

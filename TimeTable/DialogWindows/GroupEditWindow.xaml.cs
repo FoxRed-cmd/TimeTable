@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
@@ -60,7 +50,7 @@ namespace TimeTable.DialogWindows
                         txtTime.Clear();
                         txtForm.Clear();
                         GroupsPage.dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
-                        
+
                     }
                     catch (Exception ex)
                     {
