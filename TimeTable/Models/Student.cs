@@ -1,27 +1,24 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace TimeTable
 {
     public class Student
     {
+        private static string? expression;
         public string Login { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public byte[]? Photo { get; set; }
-        public string? Phone { get; set; } 
+        public string? Phone { get; set; }
         public string? Email { get; set; }
 
         public static IEnumerable<Student> GetAllDataFromTable()
         {
-            List<Student> students = new();
-            string expression = @"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
+            expression = @"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students";
             using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
@@ -33,23 +30,21 @@ namespace TimeTable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
-                            students.Add(new Student() 
-                            { 
+                            yield return new Student()
+                            {
                                 Login = reader["login"].ToString() ?? string.Empty,
                                 Group = reader["groupName"].ToString() ?? string.Empty,
                                 Name = reader["Name"].ToString() ?? string.Empty,
                                 Photo = Equals(reader["photo"], DBNull.Value) ? null : (byte[])reader["photo"],
                                 Phone = reader["phone"].ToString(),
                                 Email = reader["email"].ToString()
-                            });
+                            };
                     }
                 }
             }
-            return students;
         }
         public static Student GetStudentByLogin(string login)
         {
-            Student student = null;
             string expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students 
@@ -63,7 +58,7 @@ namespace TimeTable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
-                            student = new Student()
+                            return new Student()
                             {
                                 Login = reader["login"].ToString() ?? string.Empty,
                                 Group = reader["groupName"].ToString() ?? string.Empty,
@@ -75,12 +70,11 @@ namespace TimeTable
                     }
                 }
             }
-            return student;
+            return null;
         }
         public static IEnumerable<Student> GetStudentsByGroup(string groupName)
         {
-            List<Student> students = new();
-            string expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
+            expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
                                 Photo as photo, Phone as phone, Email as email
                                 FROM Students 
                                 WHERE GroupName = '{groupName}'";
@@ -93,7 +87,7 @@ namespace TimeTable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
-                            students.Add(new Student()
+                            yield return new Student()
                             {
                                 Login = reader["login"].ToString() ?? string.Empty,
                                 Group = reader["groupName"].ToString() ?? string.Empty,
@@ -101,15 +95,13 @@ namespace TimeTable
                                 Photo = Equals(reader["photo"], DBNull.Value) ? null : (byte[])reader["photo"],
                                 Phone = reader["phone"].ToString(),
                                 Email = reader["email"].ToString()
-                            });
+                            };
                     }
                 }
             }
-            return students;
         }
         public static void AddStudent(Student student)
         {
-            string expression = string.Empty;
             if (student.Photo == null)
                 expression = @$"INSERT INTO Students (LoginOfStudents, GroupName, Name, Photo, Phone, Email) VALUES ('{student.Login}', '{student.Group}', '{student.Name}', null, '{student.Phone}', '{student.Email}')";
             else if (student.Phone == null)
@@ -133,7 +125,6 @@ namespace TimeTable
         }
         public static void UpdateStudent(Student student, string login)
         {
-            string expression = string.Empty;
             if (student.Photo == null)
                 expression = @$"UPDATE Students SET LoginOfStudents='{student.Login}', GroupName='{student.Group}', Name='{student.Name}', Phone='{student.Phone}', Email='{student.Email}' WHERE LoginOfStudents='{login}'";
             else if (student.Phone == null)
@@ -156,7 +147,7 @@ namespace TimeTable
         }
         public static void UpdateStudentLogin(string oldLogin, string newLogin)
         {
-            string expression = $@"UPDATE Students SET LoginOfStudents='{newLogin}' WHERE LoginOfStudents='{oldLogin}'";
+            expression = $@"UPDATE Students SET LoginOfStudents='{newLogin}' WHERE LoginOfStudents='{oldLogin}'";
             using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
@@ -166,7 +157,7 @@ namespace TimeTable
         }
         public static void DeleteStudentByLogin(string login)
         {
-            string expression = $@"DELETE FROM Students WHERE LoginOfStudents='{login}'";
+            expression = $@"DELETE FROM Students WHERE LoginOfStudents='{login}'";
             using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
@@ -177,7 +168,7 @@ namespace TimeTable
         public static void DeleteStudentByGroup(string groupName)
         {
             GetStudentsByGroup(groupName).ToList().ForEach(student => User.DeleteUserByLogin(student.Login));
-            string expression = $@"DELETE FROM Students WHERE GroupName='{groupName}'";
+            expression = $@"DELETE FROM Students WHERE GroupName='{groupName}'";
             using (SqliteConnection sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadWrite"))
             {
                 sqliteConnection.Open();
