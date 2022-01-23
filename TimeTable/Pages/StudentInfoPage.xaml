@@ -28,7 +28,7 @@
                             <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" 
                                 Height="32" 
                                 Margin="10 0 0 10" Cursor="Hand"
-                                VerticalAlignment="Bottom">
+                                VerticalAlignment="Bottom" Click="EditButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa5:SvgAwesome Icon="Solid_Edit" Foreground="#2B3900"
                                                 Margin="0 0 10 0"/>

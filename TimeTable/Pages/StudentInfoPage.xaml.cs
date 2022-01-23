@@ -6,22 +6,25 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using TimeTable.DialogWindows;
 
 namespace TimeTable.Pages
 {
     public partial class StudentInfoPage : Page
     {
         private byte[] photo;
+        private EditInfoForStudentWindow editInfoForStudentWindow;
         private Student student;
         public Student Student { get; set; }
         public StudentInfoPage(Student student)
         {
             InitializeComponent();
             Student = student;
-            LoadingStudent();
+            LoadingStudent(Student);
         }
-        private void LoadingStudent()
+        internal void LoadingStudent(Student student)
         {
+            Student = student;
             if (Student != null)
             {
                 txtLogin.Text = Student.Login;
@@ -31,7 +34,7 @@ namespace TimeTable.Pages
                 txtPhone.Text = Student.Phone;
                 txtEmail.Text = Student.Email;
                 if (Student.Photo == null)
-                    Photo.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.blank_profile_picture_973460_960_720.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    Photo.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.Unkownman.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 else
                 {
                     using (Stream stream = new MemoryStream(Student.Photo))
@@ -68,13 +71,19 @@ namespace TimeTable.Pages
                     };
                     Student.UpdateStudent(student, Student.Login);
                     Student = Student.GetStudentByLogin(student.Login);
-                    LoadingStudent();
+                    LoadingStudent(Student);
                 }
                 catch (Exception)
                 {
 
                 }
             };
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            editInfoForStudentWindow = new EditInfoForStudentWindow(Student, this);
+            editInfoForStudentWindow.ShowDialog();
         }
     }
 }
