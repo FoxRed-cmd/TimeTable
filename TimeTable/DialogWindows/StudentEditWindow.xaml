@@ -107,7 +107,7 @@
                 <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
                     <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" 
                             x:Name="btnEditPhoto"
-                            Margin="0 0 0 0" Click="BtnEditPhoto_Click">
+                            Margin="0 0 0 0" Click="BtnEditPhoto_Click" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <fa5:SvgAwesome Icon="Solid_Portrait" Margin="0 0 10 0"
                                             Foreground="#2B3900"/>

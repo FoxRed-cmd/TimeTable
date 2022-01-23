@@ -28,7 +28,8 @@ namespace TimeTable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
-                            yield return new User() { Login = reader["login"].ToString(), Password = reader["pass"].ToString(), Status = reader["status"].ToString() };
+                            yield return new User() { Login = reader["login"].ToString() ?? string.Empty, Password = reader["pass"].ToString() ?? string.Empty, 
+                                Status = reader["status"].ToString() ?? string.Empty };
                     }
                 }
             }
@@ -48,7 +49,8 @@ namespace TimeTable
                     if (reader.HasRows)
                     {
                         while (reader.Read())
-                            return new User() { Login = reader["login"].ToString(), Password = reader["pass"].ToString(), Status = reader["status"].ToString() };
+                            return new User() { Login = reader["login"].ToString() ?? string.Empty, Password = reader["pass"].ToString() ?? string.Empty, 
+                                Status = reader["status"].ToString() ?? string.Empty };
                     }
                 }
             }

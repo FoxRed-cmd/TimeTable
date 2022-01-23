@@ -24,7 +24,7 @@
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Padding="10" Height="38" Margin="0 0 10 0"
-                        Click="EditButton_Click">
+                        Click="EditButton_Click" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Редактировать" Margin="0 0 5 0"/>
                             <fa5:SvgAwesome Icon="Solid_Edit" Foreground="#2B3900"/>
