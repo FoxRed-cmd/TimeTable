@@ -78,7 +78,7 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Логин, Код группы и ФИО - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Логин, Пароль и Статус - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

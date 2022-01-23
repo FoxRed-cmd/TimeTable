@@ -15,11 +15,13 @@ namespace TimeTable.Pages
         private byte[] photo;
         private EditInfoForStudentWindow editInfoForStudentWindow;
         private Student student;
+        private StudentMainWindow studentMainWindow;
         public Student Student { get; set; }
-        public StudentInfoPage(Student student)
+        public StudentInfoPage(Student student, Window owner)
         {
             InitializeComponent();
             Student = student;
+            studentMainWindow = owner as StudentMainWindow;
             LoadingStudent(Student);
         }
         internal void LoadingStudent(Student student)
@@ -43,6 +45,13 @@ namespace TimeTable.Pages
                         Photo.Source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     }
                 }
+                if (studentMainWindow.login != Student.Login)
+                {
+                    studentMainWindow.login = Student.Login;
+                    studentMainWindow.boxUser.Text = $"Пользователь: {Student.Login}";
+                }
+                    
+                 
             }
         }
 

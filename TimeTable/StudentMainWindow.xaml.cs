@@ -8,7 +8,7 @@ namespace TimeTable
     {
         private MainWindow? mainWindow = null;
         private bool _isShow = false;
-        private string login;
+        internal string login;
         public StudentInfoPage StudentInfo { get; set; }
         public TimeTableForStudentInfoPage TimeTableForStudentInfo { get; set; }
         public StudentMainWindow(User user)
@@ -62,7 +62,7 @@ namespace TimeTable
             {
                 if (MainFrame.Content is not StudentInfoPage)
                 {
-                    StudentInfo = new StudentInfoPage(Student.GetStudentByLogin(login));
+                    StudentInfo = new StudentInfoPage(Student.GetStudentByLogin(login), this);
                     MainFrame.Content = StudentInfo;
                 }
             }

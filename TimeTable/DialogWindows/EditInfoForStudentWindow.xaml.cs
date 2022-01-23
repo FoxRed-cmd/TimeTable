@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using TimeTable.Pages;
 
@@ -27,29 +28,45 @@ namespace TimeTable.DialogWindows
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            newStudent = new Student()
+            if (txtLogin.Text != "" && txtPass.Text != "")
             {
-                Name = currentStudent.Name,
-                Email = txtEmail.Text,
-                Group = currentStudent.Group,
-                Login = txtLogin.Text,
-                Phone = txtPhone.Text,
-                Photo = currentStudent.Photo,
-            };
-            user = new User()
+                try
+                {
+                    newStudent = new Student()
+                    {
+                        Name = currentStudent.Name,
+                        Email = txtEmail.Text,
+                        Group = currentStudent.Group,
+                        Login = txtLogin.Text,
+                        Phone = txtPhone.Text,
+                        Photo = currentStudent.Photo,
+                    };
+                    user = new User()
+                    {
+                        Login = txtLogin.Text,
+                        Password = txtPass.Text,
+                        Status = "Student",
+                    };
+                    Student.UpdateStudent(newStudent, currentStudent.Login);
+                    User.UpdateUser(user, currentStudent.Login);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
             {
-                Login = txtLogin.Text,
-                Password = txtPass.Text,
-                Status = "Student",
-            };
-            Student.UpdateStudent(newStudent, currentStudent.Login);
-            User.UpdateUser(user, currentStudent.Login);
-            this.Close();
+                MessageBox.Show("Логин и Пароль обязательны к заполнению!", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
-            studentInfoPage.LoadingStudent(newStudent);
+            if (newStudent != null)
+                studentInfoPage.LoadingStudent(newStudent);
         }
     }
 }
