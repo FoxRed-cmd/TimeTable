@@ -6,16 +6,20 @@ using TimeTable.Pages;
 
 namespace TimeTable
 {
-    internal class ComboData
+    public class ComboData
     {
         public int Id { get; set; }
         public string Value { get; set; }
     }
-    internal class MainDataViewModel : ViewModel
+    public class MainDataViewModel : ViewModel
     {
         private Page page;
+        private List<User> users;
         private List<ComboData> comboDatasGroup = new List<ComboData>();
         private List<ComboData> comboDatasSubject = new List<ComboData>();
+        private string searchPatternForUser;
+
+        #region Свойства
         public Page Page
         {
             get { return page; }
@@ -32,7 +36,23 @@ namespace TimeTable
         public List<Group> Groups { get; set; }
         public List<TimeTableModel> TimeTableModels { get; set; }
         public List<SubjectModel> SubjectModels { get; set; }
-        public List<User> Users { get; set; }
+        public List<User> Users
+        {
+            get => users;
+            set => Set(ref users, value);
+        }
+        public string SearchPatternForUser
+        {
+            get => searchPatternForUser;
+            set
+            {
+                Set(ref searchPatternForUser, value);
+                Users = User.GetAllDataFromTable().ToList().FindAll(e => e.Login.ToLower().Contains(SearchPatternForUser.ToLower()) 
+                                                            || e.Password.ToLower().Contains(SearchPatternForUser.ToLower()) 
+                                                            || e.Status.Contains(SearchPatternForUser.ToLower()));
+            }
+        }
+        #endregion
 
         public MainDataViewModel()
         {
@@ -50,7 +70,7 @@ namespace TimeTable
             {
                 comboDatasSubject.Add(new ComboData { Id = ++j, Value = SubjectModels[i].SubjectName });
             }
-            
+
             ComboDataGroup = comboDatasGroup;
             ComboDataSubject = comboDatasSubject;
 
@@ -59,6 +79,7 @@ namespace TimeTable
             OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
             OpenSubjectsPageCommand = new LambdaCommand(OnOpenSubjectsPageCommandExecuted, CanOpenSubjectsPageCommandExecute);
             OpenUsersPageCommand = new LambdaCommand(OnOpenUsersPageCommandExecuted, CanOpenUsersPageCommandExecute);
+            RefreshUserDataCommand = new LambdaCommand(OnRefreshUserDataCommandExecuted, CanRefreshUserDataCommandExecute);
         }
 
         #region Command
@@ -155,6 +176,16 @@ namespace TimeTable
                     Page = UsersPageProp;
                 }
             }
+        }
+
+        public ICommand RefreshUserDataCommand { get; }
+        private bool CanRefreshUserDataCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnRefreshUserDataCommandExecuted(object p)
+        {
+            Users = User.GetAllDataFromTable().ToList();
         }
         #endregion
     }

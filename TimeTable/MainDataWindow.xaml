@@ -9,7 +9,7 @@
         Title="" Height="700" Width="1000" Closing="Window_Closing"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ThreeDBorderWindow" Background="#E216171B"     
-        ResizeMode="CanResize" MinWidth="500" MinHeight="400">
+        ResizeMode="CanResize" MinWidth="600" MinHeight="400">
     <Window.Resources>
         <Storyboard x:Key="ShowMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">

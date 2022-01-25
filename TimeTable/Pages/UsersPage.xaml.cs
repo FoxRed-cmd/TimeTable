@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using TimeTable.DialogWindows;
@@ -13,23 +14,18 @@ namespace TimeTable.Pages
             InitializeComponent();
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            dataGridUsers.ItemsSource = User.GetAllDataFromTable();
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            editWindow = new UsersEditWindow() { UsersPageModel = this };
+            editWindow = new UsersEditWindow(this.DataContext as MainDataViewModel) { UsersPageModel = this };
             editWindow.ShowDialog();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            User user = dataGridUsers.SelectedItem as User;
+            User? user = dataGridUsers.SelectedItem as User;
             if (user != null)
             {
-                editWindow = new UsersEditWindow(user) { UsersPageModel = this };
+                editWindow = new UsersEditWindow(user, this.DataContext as MainDataViewModel) { UsersPageModel = this };
                 editWindow.ShowDialog();
             }
         }
@@ -48,7 +44,8 @@ namespace TimeTable.Pages
                             User user = item as User;
                             User.DeleteUserByLogin(user.Login);
                         }
-                        dataGridUsers.ItemsSource = User.GetAllDataFromTable();
+                        var context = this.DataContext as MainDataViewModel;
+                        context.Users = User.GetAllDataFromTable().ToList();
                     }
                     catch (System.Exception ex)
                     {

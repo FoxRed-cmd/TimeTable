@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using TimeTable.Pages;
@@ -9,13 +10,15 @@ namespace TimeTable.DialogWindows
     {
         private User user;
         private string currentUser;
+        private MainDataViewModel viewModel;
         public UsersPage UsersPageModel { get; set; }
-        public UsersEditWindow()
+        public UsersEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
+            this.viewModel = viewModel;
         }
-        public UsersEditWindow(User user)
+        public UsersEditWindow(User user, MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
@@ -23,6 +26,7 @@ namespace TimeTable.DialogWindows
             txtLogin.Text = user.Login;
             txtPass.Text = user.Password;
             txtStatus.Text = user.Status;
+            this.viewModel = viewModel;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -43,7 +47,7 @@ namespace TimeTable.DialogWindows
                         txtLogin.Clear();
                         txtPass.Clear();
                         txtStatus.Clear();
-                        UsersPageModel.dataGridUsers.ItemsSource = User.GetAllDataFromTable();
+                        viewModel.Users = User.GetAllDataFromTable().ToList();
                     }
                     catch (Exception ex)
                     {
@@ -67,8 +71,8 @@ namespace TimeTable.DialogWindows
                             Status = txtStatus.Text
                         };
                         User.UpdateUser(user, currentUser);
-                        UsersPageModel.dataGridUsers.ItemsSource = User.GetAllDataFromTable();
                         Student.UpdateStudentLogin(currentUser, user.Login);
+                        viewModel.Users = User.GetAllDataFromTable().ToList();
                         this.Close();
                     }
                     catch (Exception ex)
