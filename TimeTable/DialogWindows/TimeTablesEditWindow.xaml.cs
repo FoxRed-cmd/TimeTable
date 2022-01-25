@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
@@ -9,13 +9,14 @@ namespace TimeTable.DialogWindows
     {
         private TimeTableModel timeTableModel;
         private string currentTimeTable;
-        public TimeTablesPage TimeTablesPage { get; set; }
-        public TimeTablesEditWindow()
+        private MainDataViewModel viewModel;
+        public TimeTablesEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
+            this.viewModel = viewModel;
         }
-        public TimeTablesEditWindow(TimeTableModel timeTableModel)
+        public TimeTablesEditWindow(TimeTableModel timeTableModel, MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
@@ -25,6 +26,7 @@ namespace TimeTable.DialogWindows
             txtGroup.Text = timeTableModel.Group;
             txtDay.Text = timeTableModel.DayOfWeek;
             txtTime.Text = timeTableModel.Time;
+            this.viewModel = viewModel;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
@@ -49,7 +51,7 @@ namespace TimeTable.DialogWindows
                         };
                         TimeTableModel.AddTimeTable(timeTableModel);
                         txtID.Clear();
-                        TimeTablesPage.dataGridTimeTables.ItemsSource = TimeTableModel.GetAllDataFromTable();
+                        viewModel.TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
                     }
                     catch (Exception ex)
                     {
@@ -58,7 +60,7 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Логин, Код группы и ФИО - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Предмет, Группа, День недели и Время - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -75,7 +77,7 @@ namespace TimeTable.DialogWindows
                             Time = txtTime.Text,
                         };
                         TimeTableModel.UpdateTimeTable(timeTableModel, currentTimeTable);
-                        TimeTablesPage.dataGridTimeTables.ItemsSource = TimeTableModel.GetAllDataFromTable();
+                        viewModel.TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
                         this.Close();
                     }
                     catch (Exception ex)
@@ -85,7 +87,7 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Логин, Код группы и ФИО - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Предмет, Группа, День недели и Время - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

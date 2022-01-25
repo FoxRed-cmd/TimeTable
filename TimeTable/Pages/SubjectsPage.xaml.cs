@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using TimeTable.DialogWindows;
@@ -15,7 +16,7 @@ namespace TimeTable.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            subjectEditWindow = new SubjectEditWindow() { SubjectsPageModel = this };
+            subjectEditWindow = new SubjectEditWindow(this.DataContext as MainDataViewModel);
             subjectEditWindow.ShowDialog();
         }
 
@@ -24,7 +25,7 @@ namespace TimeTable.Pages
             SubjectModel subject = dataGridSubjects.SelectedItem as SubjectModel;
             if (subject != null)
             {
-                subjectEditWindow = new SubjectEditWindow(subject) { SubjectsPageModel = this };
+                subjectEditWindow = new SubjectEditWindow(subject, this.DataContext as MainDataViewModel);
                 subjectEditWindow.ShowDialog();
             }
         }
@@ -44,7 +45,8 @@ namespace TimeTable.Pages
                             TimeTableModel.DeleteTimeTableBySubject(subject.SubjectName);
                             SubjectModel.DeleteSubjectByName(subject.SubjectName);
                         }
-                        dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
+                        var context = this.DataContext as MainDataViewModel;
+                        context.SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
                     }
                     catch (System.Exception ex)
                     {
@@ -52,11 +54,6 @@ namespace TimeTable.Pages
                     }
                 }
             }
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
         }
     }
 }

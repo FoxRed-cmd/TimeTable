@@ -17,11 +17,15 @@ namespace TimeTable
         private List<User> users;
         private List<Student> students;
         private List<Group> groups;
+        private List<TimeTableModel> timeTableModels;
+        private List<SubjectModel> subjectModels;
         private List<ComboData> comboDatasGroup = new List<ComboData>();
         private List<ComboData> comboDatasSubject = new List<ComboData>();
         private string searchPatternForUser;
         private string searchPatternForStudent;
         private string searchPatternForGroup;
+        private string searchPatternForTimeTable;
+        private string searchPatternForSubject;
 
         #region Свойства
         public Page Page
@@ -46,8 +50,16 @@ namespace TimeTable
             get => groups; 
             set => Set(ref groups, value); 
         }
-        public List<TimeTableModel> TimeTableModels { get; set; }
-        public List<SubjectModel> SubjectModels { get; set; }
+        public List<TimeTableModel> TimeTableModels
+        { 
+            get => timeTableModels; 
+            set => Set(ref timeTableModels, value); 
+        }
+        public List<SubjectModel> SubjectModels
+        { 
+            get => subjectModels; 
+            set => Set(ref subjectModels, value);
+        }
         public List<User> Users
         {
             get => users;
@@ -89,6 +101,30 @@ namespace TimeTable
                                                               || g.TrainingPeriod.ToLower().Contains(searchPatternForGroup.ToLower()));
             }
         }
+        public string SearchPatternForTimeTable
+        {
+            get => searchPatternForTimeTable;
+            set
+            {
+                Set(ref searchPatternForTimeTable, value);
+                TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList().FindAll(t => t.Group.ToLower().Contains(searchPatternForTimeTable.ToLower())
+                                                                                || t.Subject.ToLower().Contains(searchPatternForTimeTable.ToLower())
+                                                                                || t.DayOfWeek.ToLower().Contains(searchPatternForTimeTable.ToLower())
+                                                                                || t.Time.ToLower().Contains(searchPatternForTimeTable.ToLower())
+                                                                                || t.Id.ToLower().Contains(searchPatternForTimeTable.ToLower()));
+            }
+        }
+        public string SearchPatternForSubject
+        {
+            get => searchPatternForSubject;
+            set
+            {
+                Set(ref searchPatternForSubject, value);
+                SubjectModels = SubjectModel.GetAllDataFromTable().ToList().FindAll(s => s.SubjectName.ToLower().Contains(searchPatternForSubject.ToLower())
+                                                                            || s.Description.ToLower().Contains(searchPatternForSubject.ToLower())
+                                                                            || s.TeacherName.ToLower().Contains(searchPatternForSubject.ToLower()));
+            }
+        }
         #endregion
 
         public MainDataViewModel()
@@ -120,6 +156,8 @@ namespace TimeTable
             RefreshUserDataCommand = new LambdaCommand(OnRefreshUserDataCommandExecuted, CanRefreshUserDataCommandExecute);
             RefreshStudentDataCommand = new LambdaCommand(OnRefreshStudentDataCommandExecuted, CanRefreshStudentDataCommandExecute);
             RefreshGroupDataCommand = new LambdaCommand(OnRefreshGroupDataCommandExecuted, CanRefreshGroupDataCommandExecute);
+            RefreshTimeTableDataCommand = new LambdaCommand(OnRefreshTimeTableDataCommandExecuted, CanRefreshTimeTableDataCommandExecute);
+            RefreshSubjectDataCommand = new LambdaCommand(OnRefreshSubjectDataCommandExecuted, CanRefreshSubjectDataCommandExecute);
         }
 
         #region Command
@@ -247,6 +285,26 @@ namespace TimeTable
         private void OnRefreshGroupDataCommandExecuted(object p)
         {
             Groups = Group.GetAllDataFromTable().ToList();
+        }
+
+        public ICommand RefreshTimeTableDataCommand { get; }
+        private bool CanRefreshTimeTableDataCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnRefreshTimeTableDataCommandExecuted(object p)
+        {
+            TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
+        }
+
+        public ICommand RefreshSubjectDataCommand { get; }
+        private bool CanRefreshSubjectDataCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnRefreshSubjectDataCommandExecuted(object p)
+        {
+            SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
         }
         #endregion
     }

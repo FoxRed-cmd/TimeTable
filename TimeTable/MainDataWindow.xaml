@@ -6,7 +6,7 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:TimeTable"
         mc:Ignorable="d"
-        Title="" Height="700" Width="1000" Closing="Window_Closing"
+        Title="" Height="700" Width="1020" Closing="Window_Closing"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ThreeDBorderWindow" Background="#E216171B"     
         ResizeMode="CanResize" MinWidth="600" MinHeight="400">

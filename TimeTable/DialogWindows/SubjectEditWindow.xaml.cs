@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
@@ -10,13 +10,14 @@ namespace TimeTable.DialogWindows
     {
         private SubjectModel subjectModel;
         private string currentSubject;
-        public SubjectsPage SubjectsPageModel { get; set; }
-        public SubjectEditWindow()
+        private MainDataViewModel viewModel;
+        public SubjectEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
+            this.viewModel = viewModel;
         }
-        public SubjectEditWindow(SubjectModel subject)
+        public SubjectEditWindow(SubjectModel subject, MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
@@ -24,6 +25,7 @@ namespace TimeTable.DialogWindows
             txtSub.Text = subject.SubjectName;
             txtDesc.Text = subject.Description;
             txtTeacher.Text = subject.TeacherName;
+            this.viewModel = viewModel;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => this.DragMove();
@@ -48,7 +50,7 @@ namespace TimeTable.DialogWindows
                         txtTeacher.Clear();
                         txtSub.Clear();
                         txtDesc.Clear();
-                        SubjectsPageModel.dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
+                        viewModel.SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
 
                     }
                     catch (Exception ex)
@@ -73,7 +75,7 @@ namespace TimeTable.DialogWindows
                             TeacherName = txtTeacher.Text,
                         };
                         SubjectModel.UpdateSubject(subjectModel, currentSubject);
-                        SubjectsPageModel.dataGridSubjects.ItemsSource = SubjectModel.GetAllDataFromTable();
+                        viewModel.SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
                         this.Close();
                     }
                     catch (Exception ex)
