@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
@@ -15,14 +13,14 @@ namespace TimeTable.DialogWindows
         private User user;
         private string currentLogin;
         private byte[] photo;
-        private Task task;
-        internal StudentsPage StudentPage { get; set; }
-        public StudentEditWindow()
+        private MainDataViewModel viewModel;
+        public StudentEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
+            this.viewModel = viewModel;
         }
-        public StudentEditWindow(Student student)
+        public StudentEditWindow(Student student, MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
@@ -33,6 +31,7 @@ namespace TimeTable.DialogWindows
             txtPhone.Text = student.Phone;
             txtEmail.Text = student.Email;
             txtPass.Text = User.GetUserByLogin(student.Login).Password;
+            this.viewModel = viewModel;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e) => this.Close();
@@ -58,7 +57,7 @@ namespace TimeTable.DialogWindows
         {
             if (txtTitle.Text == "Добавить")
             {
-                if (txtLogin.Text != "" && txtName.Text != "" && txtIDGroup.Text != "")
+                if (txtLogin.Text != "" && txtName.Text != "" && txtIDGroup.Text != "" && txtPass.Text != "")
                 {
                     try
                     {
@@ -84,7 +83,7 @@ namespace TimeTable.DialogWindows
                         txtLogin.Clear();
                         txtPhone.Clear();
                         txtPass.Clear();
-                        StudentPage.dataGridStudents.ItemsSource = Student.GetAllDataFromTable();
+                        viewModel.Students = Student.GetAllDataFromTable().ToList();
                     }
                     catch (Exception ex)
                     {
@@ -93,11 +92,11 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Логин, Код группы и ФИО - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Логин, Группа, Пароль и ФИО - обязательны к заполнению", "Ошибка сохранения", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                if (txtLogin.Text != "" && txtName.Text != "" && txtIDGroup.Text != "")
+                if (txtLogin.Text != "" && txtName.Text != "" && txtIDGroup.Text != "" && txtPass.Text != "")
                 {
                     try
                     {
@@ -118,7 +117,7 @@ namespace TimeTable.DialogWindows
                         };
                         Student.UpdateStudent(student, currentLogin);
                         User.UpdateUser(user, currentLogin);
-                        StudentPage.dataGridStudents.ItemsSource = Student.GetAllDataFromTable().ToList();
+                        viewModel.Students = Student.GetAllDataFromTable().ToList();
                         this.Close();
                     }
                     catch (Exception ex)
@@ -128,7 +127,7 @@ namespace TimeTable.DialogWindows
 
                 }
                 else
-                    System.Windows.MessageBox.Show("Поля: Логин, Код группы и ФИО - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Поля: Логин, Группа, Пароль и ФИО - обязательны к заполнению", "Ошибка обновления", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

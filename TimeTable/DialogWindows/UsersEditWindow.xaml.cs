@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
@@ -11,7 +10,6 @@ namespace TimeTable.DialogWindows
         private User user;
         private string currentUser;
         private MainDataViewModel viewModel;
-        public UsersPage UsersPageModel { get; set; }
         public UsersEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();

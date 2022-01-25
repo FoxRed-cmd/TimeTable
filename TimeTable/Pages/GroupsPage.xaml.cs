@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using TimeTable.DialogWindows;
@@ -14,7 +15,7 @@ namespace TimeTable.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            GroupEditWindow groupEditWindow = new() { GroupsPage = this };
+            GroupEditWindow groupEditWindow = new(this.DataContext as MainDataViewModel);
             groupEditWindow.ShowDialog();
         }
 
@@ -23,7 +24,7 @@ namespace TimeTable.Pages
             Group group = dataGridGroups.SelectedItem as Group;
             if (group != null)
             {
-                GroupEditWindow groupEditWindow = new(group) { GroupsPage = this };
+                GroupEditWindow groupEditWindow = new(group, this.DataContext as MainDataViewModel);
                 groupEditWindow.ShowDialog();
             }
         }
@@ -43,7 +44,8 @@ namespace TimeTable.Pages
                             TimeTableModel.DeleteTimeTableByGroup(group.Name);
                             Group.DeleteGroupByName(group.Name);
                         }
-                        dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
+                        var context = this.DataContext as MainDataViewModel;
+                        context.Groups = Group.GetAllDataFromTable().ToList();
                     }
                     catch (System.Exception ex)
                     {
@@ -51,11 +53,6 @@ namespace TimeTable.Pages
                     }
                 }
             }
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
         }
     }
 }

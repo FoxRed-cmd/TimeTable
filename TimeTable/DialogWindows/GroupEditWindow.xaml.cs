@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TimeTable.Pages;
 
 namespace TimeTable.DialogWindows
 {
@@ -9,14 +9,15 @@ namespace TimeTable.DialogWindows
     {
         private Group group;
         private string currentGroup;
-        public GroupsPage GroupsPage { get; set; }
-        public GroupEditWindow()
+        MainDataViewModel viewModel;
+        public GroupEditWindow(MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Добавить";
+            this.viewModel = viewModel;
         }
 
-        public GroupEditWindow(Group group)
+        public GroupEditWindow(Group group, MainDataViewModel viewModel)
         {
             InitializeComponent();
             txtTitle.Text = "Редактировать";
@@ -25,6 +26,7 @@ namespace TimeTable.DialogWindows
             txtDesc.Text = group.Description;
             txtTime.Text = group.TrainingPeriod;
             txtForm.Text = group.FormOfStudy;
+            this.viewModel = viewModel;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => DragMove();
@@ -49,7 +51,7 @@ namespace TimeTable.DialogWindows
                         txtDesc.Clear();
                         txtTime.Clear();
                         txtForm.Clear();
-                        GroupsPage.dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
+                        viewModel.Groups = Group.GetAllDataFromTable().ToList();
 
                     }
                     catch (Exception ex)
@@ -75,7 +77,7 @@ namespace TimeTable.DialogWindows
                             FormOfStudy = txtForm.Text,
                         };
                         Group.UpdateGroup(group, currentGroup);
-                        GroupsPage.dataGridGroups.ItemsSource = Group.GetAllDataFromTable();
+                        viewModel.Groups = Group.GetAllDataFromTable().ToList();
                         this.Close();
                     }
                     catch (Exception ex)

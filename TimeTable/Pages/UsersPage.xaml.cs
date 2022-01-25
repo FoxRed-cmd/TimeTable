@@ -16,7 +16,7 @@ namespace TimeTable.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            editWindow = new UsersEditWindow(this.DataContext as MainDataViewModel) { UsersPageModel = this };
+            editWindow = new UsersEditWindow(this.DataContext as MainDataViewModel);
             editWindow.ShowDialog();
         }
 
@@ -25,7 +25,7 @@ namespace TimeTable.Pages
             User? user = dataGridUsers.SelectedItem as User;
             if (user != null)
             {
-                editWindow = new UsersEditWindow(user, this.DataContext as MainDataViewModel) { UsersPageModel = this };
+                editWindow = new UsersEditWindow(user, this.DataContext as MainDataViewModel);
                 editWindow.ShowDialog();
             }
         }

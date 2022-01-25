@@ -15,9 +15,13 @@ namespace TimeTable
     {
         private Page page;
         private List<User> users;
+        private List<Student> students;
+        private List<Group> groups;
         private List<ComboData> comboDatasGroup = new List<ComboData>();
         private List<ComboData> comboDatasSubject = new List<ComboData>();
         private string searchPatternForUser;
+        private string searchPatternForStudent;
+        private string searchPatternForGroup;
 
         #region Свойства
         public Page Page
@@ -32,8 +36,16 @@ namespace TimeTable
         public UsersPage UsersPageProp { get; set; }
         public List<ComboData> ComboDataGroup { get; set; }
         public List<ComboData> ComboDataSubject { get; set; }
-        public List<Student> Students { get; set; }
-        public List<Group> Groups { get; set; }
+        public List<Student> Students
+        { 
+            get => students; 
+            set => Set(ref students, value); 
+        }
+        public List<Group> Groups
+        { 
+            get => groups; 
+            set => Set(ref groups, value); 
+        }
         public List<TimeTableModel> TimeTableModels { get; set; }
         public List<SubjectModel> SubjectModels { get; set; }
         public List<User> Users
@@ -49,7 +61,32 @@ namespace TimeTable
                 Set(ref searchPatternForUser, value);
                 Users = User.GetAllDataFromTable().ToList().FindAll(e => e.Login.ToLower().Contains(SearchPatternForUser.ToLower()) 
                                                             || e.Password.ToLower().Contains(SearchPatternForUser.ToLower()) 
-                                                            || e.Status.Contains(SearchPatternForUser.ToLower()));
+                                                            || e.Status.ToLower().Contains(SearchPatternForUser.ToLower()));
+            }
+        }
+        public string SearchPatternForStudent
+        {
+            get => searchPatternForStudent;
+            set
+            {
+                Set(ref searchPatternForStudent, value);
+                Students = Student.GetAllDataFromTable().ToList().FindAll(s => s.Login.ToLower().Contains(searchPatternForStudent.ToLower())
+                                                                  || s.Name.ToLower().Contains(searchPatternForStudent.ToLower())
+                                                                  || s.Group.ToLower().Contains(searchPatternForStudent.ToLower())
+                                                                  || s.Phone.ToLower().Contains(searchPatternForStudent.ToLower())
+                                                                  || s.Email.ToLower().Contains(searchPatternForStudent.ToLower()));
+            }
+        }
+        public string SearchPatternForGroup
+        {
+            get => searchPatternForGroup;
+            set 
+            { 
+                Set(ref searchPatternForGroup, value);
+                Groups = Group.GetAllDataFromTable().ToList().FindAll(g => g.Name.ToLower().Contains(searchPatternForGroup.ToLower())
+                                                              || g.Description.ToLower().Contains(searchPatternForGroup.ToLower())
+                                                              || g.FormOfStudy.ToLower().Contains(searchPatternForGroup.ToLower())
+                                                              || g.TrainingPeriod.ToLower().Contains(searchPatternForGroup.ToLower()));
             }
         }
         #endregion
@@ -79,7 +116,10 @@ namespace TimeTable
             OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
             OpenSubjectsPageCommand = new LambdaCommand(OnOpenSubjectsPageCommandExecuted, CanOpenSubjectsPageCommandExecute);
             OpenUsersPageCommand = new LambdaCommand(OnOpenUsersPageCommandExecuted, CanOpenUsersPageCommandExecute);
+
             RefreshUserDataCommand = new LambdaCommand(OnRefreshUserDataCommandExecuted, CanRefreshUserDataCommandExecute);
+            RefreshStudentDataCommand = new LambdaCommand(OnRefreshStudentDataCommandExecuted, CanRefreshStudentDataCommandExecute);
+            RefreshGroupDataCommand = new LambdaCommand(OnRefreshGroupDataCommandExecuted, CanRefreshGroupDataCommandExecute);
         }
 
         #region Command
@@ -170,6 +210,7 @@ namespace TimeTable
             {
                 if (UsersPageProp != null)
                     Page = UsersPageProp;
+                   
                 else
                 {
                     UsersPageProp = new UsersPage();
@@ -186,6 +227,26 @@ namespace TimeTable
         private void OnRefreshUserDataCommandExecuted(object p)
         {
             Users = User.GetAllDataFromTable().ToList();
+        }
+
+        public ICommand RefreshStudentDataCommand { get; }
+        private bool CanRefreshStudentDataCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnRefreshStudentDataCommandExecuted(object p)
+        {
+            Students = Student.GetAllDataFromTable().ToList();
+        }
+
+        public ICommand RefreshGroupDataCommand { get; }
+        private bool CanRefreshGroupDataCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnRefreshGroupDataCommandExecuted(object p)
+        {
+            Groups = Group.GetAllDataFromTable().ToList();
         }
         #endregion
     }

@@ -16,16 +16,16 @@ namespace TimeTable.Pages
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            studentEditWindow = new StudentEditWindow() { StudentPage = this };
+            studentEditWindow = new StudentEditWindow(this.DataContext as MainDataViewModel);
             studentEditWindow.ShowDialog();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            Student student = dataGridStudents.SelectedItem as Student;
+            Student? student = dataGridStudents.SelectedItem as Student;
             if (student != null)
             {
-                studentEditWindow = new StudentEditWindow(student) { StudentPage = this };
+                studentEditWindow = new StudentEditWindow(student, this.DataContext as MainDataViewModel);
                 studentEditWindow.ShowDialog();
             }
         }
@@ -45,7 +45,8 @@ namespace TimeTable.Pages
                             Student.DeleteStudentByLogin(student.Login);
                             User.DeleteUserByLogin(student.Login);
                         }
-                        dataGridStudents.ItemsSource = Student.GetAllDataFromTable();
+                        var context = this.DataContext as MainDataViewModel;
+                        context.Students = Student.GetAllDataFromTable().ToList();
                     }
                     catch (System.Exception ex)
                     {
