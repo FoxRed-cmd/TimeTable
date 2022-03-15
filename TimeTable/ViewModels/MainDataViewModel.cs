@@ -15,12 +15,14 @@ namespace TimeTable
     {
         private Page page;
         private List<User> users;
-        private List<Student> students;
         private List<Group> groups;
-        private List<TimeTableModel> timeTableModels;
+        private List<Rating> ratings;
+        private List<Student> students;
         private List<SubjectModel> subjectModels;
-        private List<ComboData> comboDatasGroup = new List<ComboData>();
-        private List<ComboData> comboDatasSubject = new List<ComboData>();
+        private List<TimeTableModel> timeTableModels;
+        private List<ComboData> comboDataGroup = new List<ComboData>();
+        private List<ComboData> comboDataStudent= new List<ComboData>();
+        private List<ComboData> comboDataSubject = new List<ComboData>();
         private string searchPatternForUser;
         private string searchPatternForStudent;
         private string searchPatternForGroup;
@@ -38,8 +40,10 @@ namespace TimeTable
         public TimeTablesPage TimeTablesPageProp { get; set; }
         public SubjectsPage SubjectsPageProp { get; set; }
         public UsersPage UsersPageProp { get; set; }
+        public RatingsPage RatingsPageProp { get; set; }
         public List<ComboData> ComboDataGroup { get; set; }
         public List<ComboData> ComboDataSubject { get; set; }
+        public List<ComboData> ComboDataStudent { get; set; }
         public List<Student> Students
         { 
             get => students; 
@@ -64,6 +68,11 @@ namespace TimeTable
         {
             get => users;
             set => Set(ref users, value);
+        }
+        public List<Rating> Ratings
+        {
+            get => ratings;
+            set => Set(ref ratings, value);
         }
         public string SearchPatternForUser
         {
@@ -135,23 +144,30 @@ namespace TimeTable
             TimeTableModels = TimeTableModel.GetAllDataFromTable().ToList();
             SubjectModels = SubjectModel.GetAllDataFromTable().ToList();
             Users = User.GetAllDataFromTable().ToList();
+            Ratings = Rating.GetAllDataFromTable().ToList();
             for (int i = 0, j = 0; i < Groups.Count; i++)
             {
-                comboDatasGroup.Add(new ComboData { Id = ++j, Value = Groups[i].Name });
+                comboDataGroup.Add(new ComboData { Id = ++j, Value = Groups[i].Name });
             }
             for (int i = 0, j = 0; i < SubjectModels.Count; i++)
             {
-                comboDatasSubject.Add(new ComboData { Id = ++j, Value = SubjectModels[i].SubjectName });
+                comboDataSubject.Add(new ComboData { Id = ++j, Value = SubjectModels[i].SubjectName });
+            }
+            for (int i = 0, j = 0; i < Students.Count; i++)
+            {
+                comboDataStudent.Add(new ComboData { Id = ++j, Value = Students[i].Name });
             }
 
-            ComboDataGroup = comboDatasGroup;
-            ComboDataSubject = comboDatasSubject;
+            ComboDataGroup = comboDataGroup;
+            ComboDataSubject = comboDataSubject;
+            ComboDataStudent = comboDataStudent;
 
             OpenStudentsPageCommand = new LambdaCommand(OnOpenStudentsPageCommandExecuted, CanOpenStudentsPageCommandExecute);
             OpenGroupsPageCommand = new LambdaCommand(OnOpenGroupsPageCommandExecuted, CanOpenGroupsPageCommandExecute);
             OpenTimeTablesPageCommand = new LambdaCommand(OnOpenTimeTablesPageCommandExecuted, CanOpenTimeTablesPageCommandExecute);
             OpenSubjectsPageCommand = new LambdaCommand(OnOpenSubjectsPageCommandExecuted, CanOpenSubjectsPageCommandExecute);
             OpenUsersPageCommand = new LambdaCommand(OnOpenUsersPageCommandExecuted, CanOpenUsersPageCommandExecute);
+            OpenScorePageCommand = new LambdaCommand(OnOpenScorePageCommandExecuted, CanOpenScorePageCommandExecute);
 
             RefreshUserDataCommand = new LambdaCommand(OnRefreshUserDataCommandExecuted, CanRefreshUserDataCommandExecute);
             RefreshStudentDataCommand = new LambdaCommand(OnRefreshStudentDataCommandExecuted, CanRefreshStudentDataCommandExecute);
@@ -253,6 +269,26 @@ namespace TimeTable
                 {
                     UsersPageProp = new UsersPage();
                     Page = UsersPageProp;
+                }
+            }
+        }
+
+        public ICommand OpenScorePageCommand { get; }
+        private bool CanOpenScorePageCommandExecute(object p)
+        {
+            return true;
+        }
+        private void OnOpenScorePageCommandExecuted(object p)
+        {
+            if (Page is not RatingsPage)
+            {
+                if (RatingsPageProp != null)
+                    Page = RatingsPageProp;
+
+                else
+                {
+                    RatingsPageProp = new RatingsPage();
+                    Page = RatingsPageProp;
                 }
             }
         }

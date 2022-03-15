@@ -116,6 +116,7 @@ namespace TimeTable.DialogWindows
                             Status = "Student"
                         };
                         Student.UpdateStudent(student, currentLogin);
+                        Rating.UpdateRatingLogin(currentLogin, user.Login);
                         User.UpdateUser(user, currentLogin);
                         viewModel.Students = Student.GetAllDataFromTable().ToList();
                         this.Close();

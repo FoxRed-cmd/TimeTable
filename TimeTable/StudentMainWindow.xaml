@@ -35,7 +35,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="btnDef" TargetType="Button">
-            <Setter Property="Background" Value="#AD3E0A"/>
+            <Setter Property="Background" Value="#4D5FC9"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -53,7 +53,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="False">
-                                <Setter Property="Background" Value="#C84B10"/>
+                                <Setter Property="Background" Value="#536DFE"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -80,7 +80,7 @@
                 <RowDefinition Height="45px"/>
                 <RowDefinition Height="153*"/>
             </Grid.RowDefinitions>
-            <Border Background="#C84B10" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Border Background="#536DFE" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Grid>
                     <WrapPanel Grid.Column="0" HorizontalAlignment="Left" Width="816">
                         <TextBlock Text="Данные"
@@ -106,7 +106,7 @@
             <Frame x:Name="MainFrame" Grid.Row="1" Margin="55 0 0 0" Content="{Binding Page}"
                    NavigationUIVisibility="Hidden"/>
             <Grid x:Name="grid" Grid.Row="1" Width="150" HorizontalAlignment="Left" 
-              Margin="-96 0 0 0" RenderTransformOrigin="0.5,0.5" Background="#C84B10">
+              Margin="-96 0 0 0" RenderTransformOrigin="0.5,0.5" Background="#536DFE">
                 <Grid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -153,6 +153,18 @@
                                             Height="30"
                                             HorizontalAlignment="Left"
                                             Foreground="WhiteSmoke" Margin="101,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource btnDef}" HorizontalContentAlignment="Left"
+                            Padding="10 10 0 10" Click="RatingButton_Click">
+                        <Grid>
+                            <TextBlock Text="Оценки" HorizontalAlignment="Center" Width="126"
+                                       FontSize="16"/>
+                            <fa5:SvgAwesome Icon="Regular_CheckCircle"
+                                            Width="34"
+                                            Height="30"
+                                            HorizontalAlignment="Left"
+                                            Foreground="WhiteSmoke" Margin="99,0,0,0"/>
                         </Grid>
                     </Button>
                 </StackPanel>

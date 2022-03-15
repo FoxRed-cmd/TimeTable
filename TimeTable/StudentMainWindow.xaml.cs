@@ -11,6 +11,7 @@ namespace TimeTable
         internal string login;
         public StudentInfoPage StudentInfo { get; set; }
         public TimeTableForStudentInfoPage TimeTableForStudentInfo { get; set; }
+        public RatingForStudentPage RatingForStudentInfo { get; set; }
         public StudentMainWindow(User user)
         {
             InitializeComponent();
@@ -102,6 +103,30 @@ namespace TimeTable
                 {
                     TimeTableForStudentInfo = new TimeTableForStudentInfoPage(Student.GetStudentByLogin(login));
                     MainFrame.Content = TimeTableForStudentInfo;
+                }
+            }
+
+            if (_isShow == true)
+            {
+                animButton_Click(sender, e);
+            }
+        }
+
+        private void RatingButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RatingForStudentInfo != null)
+            {
+                if (MainFrame.Content is not RatingForStudentPage)
+                {
+                    MainFrame.Content = RatingForStudentInfo;
+                }
+            }
+            else
+            {
+                if (MainFrame.Content is not RatingForStudentPage)
+                {
+                    RatingForStudentInfo = new RatingForStudentPage(Student.GetStudentByLogin(login));
+                    MainFrame.Content = RatingForStudentInfo;
                 }
             }
 

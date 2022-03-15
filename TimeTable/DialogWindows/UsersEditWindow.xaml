@@ -16,7 +16,7 @@
         <vm:MainDataViewModel/>
     </Window.DataContext>
     <Grid>
-        <Border CornerRadius="10" Margin="0" Background="#FF16171B">
+        <Border Margin="0" Background="#FF16171B">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
@@ -24,8 +24,7 @@
                     <RowDefinition Height="56*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Border CornerRadius="10 10 0 0" 
-                            Background="#CCF5580E" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                    <Border Background="#536DFE" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
@@ -42,7 +41,7 @@
                                 <Button Width="27" Padding="0" Margin="10" Background="{x:Null}" 
                                         BorderBrush="{x:Null}" Height="24" 
                                         Foreground="{x:Null}" TabIndex="4" Click="Button_Click">
-                                    <fa5:SvgAwesome x:Name="clouseImg" Icon="Solid_SkullCrossbones" Width="26" 
+                                    <fa5:SvgAwesome x:Name="clouseImg" Icon="Solid_Times" Width="26" 
                                                     Foreground="WhiteSmoke" 
                                                     HorizontalAlignment="Center">
                                     </fa5:SvgAwesome>

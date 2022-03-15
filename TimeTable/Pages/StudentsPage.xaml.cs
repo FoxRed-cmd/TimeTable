@@ -56,9 +56,6 @@ namespace TimeTable.Pages
             }
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            dataGridStudents.ItemsSource = Student.GetAllDataFromTable();
-        }
+        private void RefreshButton_Click(object sender, RoutedEventArgs e) => (this.DataContext as MainDataViewModel).Students = Student.GetAllDataFromTable().ToList();
     }
 }

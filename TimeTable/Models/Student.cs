@@ -75,6 +75,37 @@ namespace TimeTable
             }
             return null;
         }
+
+        public static Student GetStudentByName(string name)
+        {
+            expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,
+                                Photo as photo, Phone as phone, Email as email
+                                FROM Students 
+                                WHERE Name = '{name}'";
+            using (sqliteConnection = new SqliteConnection("Data Source=Data/TimeTableDB.db;Mode=ReadOnly"))
+            {
+                sqliteConnection.Open();
+                command = new(expression, sqliteConnection);
+                using (reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            return new Student()
+                            {
+                                Login = reader["login"].ToString() ?? string.Empty,
+                                Group = reader["groupName"].ToString() ?? string.Empty,
+                                Name = reader["Name"].ToString() ?? string.Empty,
+                                Photo = Equals(reader["photo"], DBNull.Value) ? null : (byte[])reader["photo"],
+                                Phone = reader["phone"].ToString(),
+                                Email = reader["email"].ToString()
+                            };
+                    }
+                }
+            }
+            return null;
+        }
+
         public static IEnumerable<Student> GetStudentsByGroup(string groupName)
         {
             expression = $@"SELECT LoginOfStudents as login, GroupName as groupName, Name as name,

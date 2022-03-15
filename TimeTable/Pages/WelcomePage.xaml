@@ -9,7 +9,7 @@
       Title="WelcomePage">
 
     <Grid>
-        <TextBlock Text="Welcome" VerticalAlignment="Center"
+        <TextBlock Text="Добро пожаловать ^_^" VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="50"
                    FontWeight="Bold"

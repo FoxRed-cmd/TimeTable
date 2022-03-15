@@ -70,6 +70,7 @@ namespace TimeTable.DialogWindows
                         };
                         User.UpdateUser(user, currentUser);
                         Student.UpdateStudentLogin(currentUser, user.Login);
+                        Rating.UpdateRatingLogin(currentUser, user.Login);
                         viewModel.Users = User.GetAllDataFromTable().ToList();
                         this.Close();
                     }
